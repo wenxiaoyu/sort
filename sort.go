@@ -122,33 +122,12 @@ func (c *collection) shellSort() error {
 	return nil
 }
 func (c *collection) mergeSort() error {
-	return nil
+	return notImplementTheSoryWay
 }
-func msort(array []Element) []Element {
-	if len(array) <= 1 {
-		return array
-	}
-	num := len(array) / 2
-	left := msort(array[:num])
-	right := msort(array[num:])
 
-
-	l, r := 0, 0
-	var result = make([]Element)
-	for l < len(left) && r < len(right) {
-		if left[l].Compared(right[r]) == 1{
-			result = append(result,left[l])
-			l++
-		}else{
-			result = append(result,right[r])
-			r++
-		}
-	}
-	result = 
-}
 func (c *collection) quickSort() error {
 	return nil
 }
 func (c *collection) heapSort() error {
-	return nil
+	return notImplementTheSoryWay
 }
