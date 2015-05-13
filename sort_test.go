@@ -15,10 +15,13 @@ func (i *Integer) Compared(v interface{}) int {
 		return 0
 	}
 	vv := v.(*Integer)
-	if i.v > vv.v {
-		return -1
+	if i.v == vv.v {
+		return 0
 	}
-	return 1
+	if i.v > vv.v{
+		return 1
+	}
+	return -1
 }
 
 func TestBubbleSort(t *testing.T) {
@@ -93,6 +96,24 @@ func TestShellSort(t *testing.T) {
 	}
 }
 
+func TestQuickSort(t *testing.T) {
+	c := NewCollection(QuickSort)
+	fmt.Println("QuickSort:before sorted :")
+	for i, v := range c.array {
+		x := (v).(*Integer)
+		fmt.Println("i->", i, "v->", x.v)
+	}
+	err := c.Sort()
+	fmt.Println("QuickSort:after sorted :")
+	for i, v := range c.array {
+		x := (v).(*Integer)
+		fmt.Println("i->", i, "v->", x.v)
+	}
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
 
 func NewCollection(way SortWay) *collection {
 	array := make([]Element, 0, 100)
@@ -132,6 +153,14 @@ func BenchmarkInsertionSort(b *testing.B) {
 func BenchmarkShellSort(b *testing.B) {
 	b.StopTimer()
 	c := NewCollection(ShellSort)
+	b.StartTimer()
+	for i:=0;i<b.N;i++{
+		c.Sort()
+	}
+}
+func BenchmarkQuickSort(b *testing.B) {
+	b.StopTimer()
+	c := NewCollection(QuickSort)
 	b.StartTimer()
 	for i:=0;i<b.N;i++{
 		c.Sort()

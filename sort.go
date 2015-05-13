@@ -126,7 +126,31 @@ func (c *collection) mergeSort() error {
 }
 
 func (c *collection) quickSort() error {
+	a := c.array[:]
+	c.array = qsort(a,0,len(a)-1)
 	return nil
+}
+func qsort(a []Element, left int, right int) []Element {
+	if left >= right {
+		return a
+	}
+	key := a[left]
+	lp := left
+	rp := right
+	for lp < rp {
+
+		for a[rp].Compared(key) >= 0 && lp < rp {
+			rp--
+		}
+		for a[lp].Compared(key) <= 0 && lp < rp {
+			lp++
+		}
+		a[lp], a[rp] = a[rp], a[lp]
+	}
+	a[left], a[lp] = a[lp], a[left]
+	qsort(a, left, lp-1)
+	qsort(a, rp+1, right)
+	return a
 }
 func (c *collection) heapSort() error {
 	return notImplementTheSoryWay
